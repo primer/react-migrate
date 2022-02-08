@@ -6,7 +6,7 @@ const args = require('yargs-parser')(process.argv.slice(2));
 const project = new Project({ compilerOptions: { target: ScriptTarget.ES3 } });
 
 const srcPath = args._[0] || 'src';
-const globPath = __dirname + '/' + srcPath + '/**/*.js';
+const globPath = __dirname + '/' + srcPath + '/**/*.{tsx,ts,jsx,js}';
 
 project.addSourceFilesAtPaths(globPath);
 console.log(`Adding ${project.getSourceFiles().length} files ${globPath} to project. \n`);
