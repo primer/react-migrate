@@ -1,0 +1,24 @@
+{
+  "name": "primer-react-migrate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "primer",
+  "license": "MIT",
+  "dependencies": {
+    "ts-morph": "^13.0.3",
+    "yargs-parser": "^21.0.0"
+  },
+  "peerDependencies": {
+    "@primer/react": "^34.3.0"
+  },
+  "devDependencies": {
+    "@primer/react": "^34.3.0",
+    "jest": "^27.5.1"
+  }
+}
