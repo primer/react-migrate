@@ -89,7 +89,7 @@ const updateImportDeclaration = (declaration, sourceFile) => {
 
     // create new import declaration for Button on the next line
     sourceFile.insertImportDeclaration(declaration.getChildIndex() + 1, {
-      moduleSpecifier: 'primer/react/deprecated',
+      moduleSpecifier: '@primer/react/deprecated',
       namedImports: buttonElementNames
     });
     return declaration;

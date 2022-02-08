@@ -1,8 +1,8 @@
-const { Project, ScriptTarget } = require('ts-morph');
+const { createProject } = require('../src/utils');
 const transform = require('../src/button-import-deprecated');
 
 // setup a project
-const project = new Project({ compilerOptions: { target: ScriptTarget.ES3 } });
+const project = createProject();
 
 const createFixture = (code) => {
   project.createSourceFile('tmp/fixture.js', code, { overwrite: true });
@@ -52,7 +52,7 @@ test('split + change import declaration when multiple components are imported', 
   createFixture(`import { ButtonDanger, TextInput } from '@primer/react';`);
   transform(project);
   expect(getResult()).toBe(
-    `import { TextInput } from '@primer/react';\nimport { ButtonDanger } from "primer/react/deprecated";\n`
+    `import { TextInput } from '@primer/react';\nimport { ButtonDanger } from '@primer/react/deprecated';\n`
   );
 });
 

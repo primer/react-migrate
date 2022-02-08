@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
-const { Project, ScriptTarget } = require('ts-morph');
+const { resolve } = require('path');
 const args = require('yargs-parser')(process.argv.slice(2));
+const { createProject } = require('./src/utils');
 
-const project = new Project({ compilerOptions: { target: ScriptTarget.ES3 } });
+const project = createProject();
 
 const srcPath = args._[0] || 'src';
-const globPath = __dirname + '/' + srcPath + '/**/*.{tsx,ts,jsx,js}';
+const globPath = resolve(srcPath + '/**/*.{tsx,ts,jsx,js}');
 
 project.addSourceFilesAtPaths(globPath);
 console.log(`Adding ${project.getSourceFiles().length} files ${globPath} to project. \n`);
@@ -14,3 +15,5 @@ console.log(`Adding ${project.getSourceFiles().length} files ${globPath} to proj
 const migration = args.migration || args.m;
 if (migration === 'deprecate-buttons') require('./src/button-import-deprecated')(project);
 else console.log('Migration not found! Did you mean `npx primer-react-migrate src -m deprecate-buttons`');
+
+module.export = { project };

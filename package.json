@@ -1,6 +1,6 @@
 {
   "name": "primer-react-migrate",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "One time migrations for primer/react",
   "main": "index.js",
   "bin": "index.js",
