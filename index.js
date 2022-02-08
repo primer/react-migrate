@@ -10,7 +10,7 @@ const srcPath = args._[0] || 'src';
 const globPath = resolve(srcPath + '/**/*.{tsx,ts,jsx,js}');
 
 project.addSourceFilesAtPaths(globPath);
-console.log(`Adding ${project.getSourceFiles().length} files ${globPath} to project. \n`);
+console.log(`Processing ${project.getSourceFiles().length} files at ${globPath} \n`);
 
 const migration = args.migration || args.m;
 if (migration === 'deprecate-buttons') require('./src/button-import-deprecated')(project);
