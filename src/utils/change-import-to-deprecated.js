@@ -1,6 +1,6 @@
 const { convertToStringLiteral } = require('./string-literal');
 
-const updateImportDeclaration = (declaration, sourceFile, componentImportNames, newModuleSpecifier) => {
+const updateImportDeclaration = (declaration, sourceFile, componentImportNames, newModuleSpecifier = null) => {
   /**  import   { ... }      from     '....'
    *          importClause        moduleSpecifier
    */
@@ -14,7 +14,7 @@ const updateImportDeclaration = (declaration, sourceFile, componentImportNames, 
   if (
     moduleSpecifier.includes('drafts') ||
     moduleSpecifier.includes('deprecated') ||
-    moduleSpecifier.includes(newModuleSpecifier)
+    (newModuleSpecifier && moduleSpecifier.includes(newModuleSpecifier))
   ) {
     return declaration;
   }
