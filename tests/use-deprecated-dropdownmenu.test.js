@@ -36,12 +36,6 @@ test('change import specifier when specifier is lib-esm', () => {
   expect(getResult()).toBe(`import { DropdownMenu } from '@primer/react/lib-esm/deprecated/DropdownMenu';`);
 });
 
-test('change import specifier when specifier is lib-esm/DropdownMenu/Divider', () => {
-  createFixture(`import Divider from '@primer/react/lib-esm/DropdownMenu/Divider';`);
-  transform(project);
-  expect(getResult()).toBe(`import Divider from '@primer/react/lib-esm/deprecated/DropdownMenu/Divider';`);
-});
-
 test('change import specifier when specifier is lib/DropdownMenu', () => {
   createFixture(`import { DropdownMenu } from '@primer/react/lib/DropdownMenu';`);
   transform(project);

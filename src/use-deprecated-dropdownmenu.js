@@ -1,7 +1,7 @@
 const { SyntaxKind } = require('ts-morph');
 const updateImportDeclaration = require('./utils/change-import-to-deprecated');
 
-const actionListImportNames = ['DropdownMenu', 'DropdownMenuProps'];
+const componentImportNames = ['DropdownMenu', 'DropdownMenuProps'];
 const fileName = 'DropdownMenu';
 const v2FileNameToIgnore = 'DropdownMenu2';
 
@@ -14,7 +14,7 @@ const transform = (project) => {
         declaration = updateImportDeclaration(
           declaration,
           sourceFile,
-          actionListImportNames,
+          componentImportNames,
           fileName,
           v2FileNameToIgnore
         );

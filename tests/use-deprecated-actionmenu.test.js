@@ -36,12 +36,6 @@ test('change import specifier when specifier is lib-esm', () => {
   expect(getResult()).toBe(`import { ActionMenu } from '@primer/react/lib-esm/deprecated/ActionMenu';`);
 });
 
-test('change import specifier when specifier is lib-esm/ActionMenu/Divider', () => {
-  createFixture(`import Divider from '@primer/react/lib-esm/ActionMenu/Divider';`);
-  transform(project);
-  expect(getResult()).toBe(`import Divider from '@primer/react/lib-esm/deprecated/ActionMenu/Divider';`);
-});
-
 test('change import specifier when specifier is lib/ActionMenu', () => {
   createFixture(`import { ActionMenu } from '@primer/react/lib/ActionMenu';`);
   transform(project);
