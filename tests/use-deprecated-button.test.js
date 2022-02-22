@@ -1,5 +1,5 @@
-const { createProject } = require('../src/utils');
-const transform = require('../src/button-import-deprecated');
+const createProject = require('../src/utils/create-project');
+const transform = require('../src/use-deprecated-button');
 
 // setup a project
 const project = createProject();

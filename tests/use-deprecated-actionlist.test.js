@@ -1,4 +1,4 @@
-const { createProject } = require('../src/utils');
+const createProject = require('../src/utils/create-project');
 const transform = require('../src/use-deprecated-actionlist');
 
 // setup a project
