@@ -7,9 +7,14 @@
 &nbsp;
 
 ```
+npx primer-react-migrate [src directory] -p [preset name]
+
+# or
 npx primer-react-migrate [src directory] -m [migration name]
 
 # Example:
+npx primer-react-migrate src/client -p v35
+
 npx primer-react-migrate src/client -m deprecate-buttons
 ```
 
