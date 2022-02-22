@@ -1,5 +1,5 @@
 const createProject = require('../src/utils/create-project');
-const transform = require('../src/use-main-pagelayout');
+const transform = require('../src/use-main-button');
 
 // setup a project
 const project = createProject();
@@ -13,27 +13,27 @@ const getResult = () => {
 };
 
 test('change import specifier from @primer/drafts to @primer/react', () => {
-  createFixture(`import { PageLayout } from '@primer/react/drafts';`);
+  createFixture(`import { Button } from '@primer/react/drafts';`);
   transform(project);
-  expect(getResult()).toBe(`import { PageLayout } from '@primer/react';`);
+  expect(getResult()).toBe(`import { Button } from '@primer/react';`);
 });
 
 test('change import specifier with multiple imports', () => {
-  createFixture(`import { PageLayout, PageLayoutProps, PageLayoutHeaderProps } from '@primer/react/drafts';`);
+  createFixture(`import { Button, ButtonProps, IconButton } from '@primer/react/drafts';`);
   transform(project);
-  expect(getResult()).toBe(`import { PageLayout, PageLayoutProps, PageLayoutHeaderProps } from '@primer/react';`);
+  expect(getResult()).toBe(`import { Button, ButtonProps, IconButton } from '@primer/react';`);
 });
 
 test('change import specifier when specifier is lib-esm/', () => {
-  createFixture(`import { PageLayout } from '@primer/react/lib-esm/PageLayout';`);
+  createFixture(`import { Button } from '@primer/react/lib-esm/Button2';`);
   transform(project);
-  expect(getResult()).toBe(`import { PageLayout } from '@primer/react/lib-esm/PageLayout';`);
+  expect(getResult()).toBe(`import { Button } from '@primer/react/lib-esm/Button2';`);
 });
 
 test('change import specifier when specifier is lib/', () => {
-  createFixture(`import { PageLayout } from '@primer/react/lib/PageLayout';`);
+  createFixture(`import { Button } from '@primer/react/lib/Button2';`);
   transform(project);
-  expect(getResult()).toBe(`import { PageLayout } from '@primer/react/lib/PageLayout';`);
+  expect(getResult()).toBe(`import { Button } from '@primer/react/lib/Button2';`);
 });
 
 test('skip import declaration when specifier is a different draft component', () => {
@@ -46,6 +46,6 @@ test('split + change import declaration when multiple components are imported', 
   createFixture(`import { PageLayout, Button } from '@primer/react/drafts';`);
   transform(project);
   expect(getResult()).toBe(
-    `import { Button } from '@primer/react/drafts';\nimport { PageLayout } from '@primer/react';\n`
+    `import { PageLayout } from '@primer/react/drafts';\nimport { Button } from '@primer/react';\n`
   );
 });

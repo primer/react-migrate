@@ -1,6 +1,6 @@
 const { convertToStringLiteral } = require('./string-literal');
 
-const updateImportDeclaration = (declaration, sourceFile, componentImportNames, newModuleSpecifier) => {
+const updateImportDeclaration = (declaration, sourceFile, componentImportNames, draftsFileName) => {
   /**  import   { ... }      from     '....'
    *          importClause        moduleSpecifier
    */
@@ -14,7 +14,10 @@ const updateImportDeclaration = (declaration, sourceFile, componentImportNames, 
   if (!moduleSpecifier.includes('drafts')) return declaration;
 
   // import ... from '@primer/react/lib-esm/*'
-  if (moduleSpecifier.includes('lib-esm/drafts/') || moduleSpecifier.includes('lib/drafts/')) {
+  if (
+    moduleSpecifier.includes('lib-esm/drafts/' + draftsFileName) ||
+    moduleSpecifier.includes('lib/drafts/' + draftsFileName)
+  ) {
     const newModuleSpecifier = moduleSpecifier.replace('lib-esm/drafts/', 'lib-esm/').replace('lib/drafts/', 'lib/');
     // have to remove quotes from string
     declaration.setModuleSpecifier(convertToStringLiteral(newModuleSpecifier));
