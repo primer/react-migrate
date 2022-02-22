@@ -1,6 +1,6 @@
 const { convertToStringLiteral } = require('./string-literal');
 
-const updateImportDeclaration = (declaration, sourceFile, componentImportNames, newModuleSpecifier) => {
+const updateImportDeclaration = (declaration, sourceFile, componentImportNames, fileName, v2FileNameToIgnore) => {
   /**  import   { ... }      from     '....'
    *          importClause        moduleSpecifier
    */
@@ -14,32 +14,32 @@ const updateImportDeclaration = (declaration, sourceFile, componentImportNames, 
   if (
     moduleSpecifier.includes('drafts') ||
     moduleSpecifier.includes('deprecated') ||
-    moduleSpecifier.includes(newModuleSpecifier)
+    moduleSpecifier.includes(v2FileNameToIgnore)
   ) {
     return declaration;
   }
 
   // import ... from '@primer/react/lib-esm/*'
-  if (moduleSpecifier.includes('lib-esm/') || moduleSpecifier.includes('lib/')) {
-    const newModuleSpecifier = moduleSpecifier
-      .replace('lib-esm/', 'lib-esm/deprecated/')
-      .replace('lib/', 'lib/deprecated/');
-    // have to remove quotes from string
-    declaration.setModuleSpecifier(convertToStringLiteral(newModuleSpecifier));
+  if (moduleSpecifier.includes('lib-esm/' + fileName) || moduleSpecifier.includes('lib/' + fileName)) {
+    declaration.setModuleSpecifier(getUpdatedModuleSpecifier(moduleSpecifier));
     return declaration;
   }
 
+  /**
+   * import {   ...    } from '@primer/react'
+   *        importClause
+   */
   const importClause = declaration.getImportClause();
 
-  // import { ... } from '@primer/react'
-  /**  import  {    Button, ButtonPrimary, TextInput    } from '@primer/react'
-   *                [          nameBindings        ]
+  /**
+   * import { ButtonPrimary, ButtonDanger } from '@primer/react/lib-esm/Button'
+   *          [      namedBindings      ]
    */
-  const nameBindings = importClause.getNamedBindings();
+  const namedBindings = importClause.getNamedBindings();
 
-  if (nameBindings) {
-    // nameBindings is array of elements
-    const elements = nameBindings.getElements();
+  if (namedBindings) {
+    // namedBindings is array of elements
+    const elements = namedBindings.getElements();
 
     const componentElements = elements.filter((element) => {
       const importName = element.getName();
@@ -51,7 +51,7 @@ const updateImportDeclaration = (declaration, sourceFile, componentImportNames, 
 
     // only deprecated component in this import
     if (elements.length === componentElements.length) {
-      declaration.setModuleSpecifier('@primer/react/deprecated');
+      declaration.setModuleSpecifier(getUpdatedModuleSpecifier(moduleSpecifier));
       return declaration;
     }
 
@@ -66,16 +66,31 @@ const updateImportDeclaration = (declaration, sourceFile, componentImportNames, 
     declaration.removeNamedImports().addNamedImports(otherElementNames);
 
     // create new import declaration for deprecated component on the next line
+
     sourceFile.insertImportDeclaration(declaration.getChildIndex() + 1, {
-      moduleSpecifier: '@primer/react/deprecated',
+      moduleSpecifier: getUpdatedModuleSpecifier(moduleSpecifier),
       namedImports: componentElementNames
     });
     return declaration;
   }
 
   // if there is an unhandled import statement that makes it till the end
-  console.log('skipping unhandled import', declaration.getFullText());
+  console.log('skipping unhandled declaration:', declaration.getFullText());
   return declaration;
 };
 
 module.exports = updateImportDeclaration;
+
+const getUpdatedModuleSpecifier = (currentModuleSpecifier) => {
+  let newModuleSpecifier;
+
+  if (currentModuleSpecifier === `'@primer/react'`) newModuleSpecifier = '@primer/react/deprecated';
+  else if (currentModuleSpecifier.includes('lib-esm/') || currentModuleSpecifier.includes('lib/')) {
+    newModuleSpecifier = currentModuleSpecifier
+      .replace('lib-esm/', 'lib-esm/deprecated/')
+      .replace('lib/', 'lib/deprecated/');
+  }
+
+  // have to remove quotes from string
+  return convertToStringLiteral(newModuleSpecifier);
+};

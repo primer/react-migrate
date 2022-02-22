@@ -2,6 +2,7 @@ const { SyntaxKind } = require('ts-morph');
 const updateImportDeclaration = require('./utils/change-import-to-deprecated');
 
 const componentImportNames = ['Grid', 'GridProps'];
+const fileName = 'Grid';
 
 const transform = (project) => {
   const sourceFiles = project.getSourceFiles();
@@ -9,7 +10,7 @@ const transform = (project) => {
   sourceFiles.forEach((sourceFile) => {
     try {
       sourceFile.getDescendantsOfKind(SyntaxKind.ImportDeclaration).forEach((declaration) => {
-        declaration = updateImportDeclaration(declaration, sourceFile, componentImportNames);
+        declaration = updateImportDeclaration(declaration, sourceFile, componentImportNames, fileName);
       });
 
       // save source back to file

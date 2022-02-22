@@ -67,3 +67,9 @@ test('skip import declaration when specifier is lib-esm/ActionList2', () => {
   transform(project);
   expect(getResult()).toBe(`import { ActionList } from '@primer/react/lib-esm/drafts/ActionList2';`);
 });
+
+test('skip import declaration when specifier is a different component from lib-esm', () => {
+  createFixture(`import { AnchoredOverlay } from '@primer/react/lib-esm/AnchoredOverlay';`);
+  transform(project);
+  expect(getResult()).toBe(`import { AnchoredOverlay } from '@primer/react/lib-esm/AnchoredOverlay';`);
+});

@@ -13,6 +13,7 @@ const componentImportNames = [
   'Sticky',
   'StickyProps'
 ];
+const fileName = 'Position';
 
 const transform = (project) => {
   const sourceFiles = project.getSourceFiles();
@@ -20,7 +21,7 @@ const transform = (project) => {
   sourceFiles.forEach((sourceFile) => {
     try {
       sourceFile.getDescendantsOfKind(SyntaxKind.ImportDeclaration).forEach((declaration) => {
-        declaration = updateImportDeclaration(declaration, sourceFile, componentImportNames);
+        declaration = updateImportDeclaration(declaration, sourceFile, componentImportNames, fileName);
       });
 
       // save source back to file
