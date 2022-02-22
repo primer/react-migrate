@@ -1,9 +1,15 @@
 const { SyntaxKind } = require('ts-morph');
-const updateImportDeclaration = require('./utils/change-import-to-deprecated');
+const updateImportDeclaration = require('./utils/change-drafts-import-to-main');
 
-const componentImportNames = ['ActionList', 'ActionListProps', 'GroupProps', 'ItemProps'];
-const fileName = 'ActionList';
-const v2FileNameToIgnore = 'ActionList2';
+const componentImportNames = [
+  'PageLayout',
+  'PageLayoutProps',
+  'PageLayoutHeaderProps',
+  'PageLayoutContentProps',
+  'PageLayoutPaneProps',
+  'PageLayoutFooterProps'
+];
+const draftsFileName = 'PageLayout2';
 
 const transform = (project) => {
   const sourceFiles = project.getSourceFiles();
@@ -11,13 +17,7 @@ const transform = (project) => {
   sourceFiles.forEach((sourceFile) => {
     try {
       sourceFile.getDescendantsOfKind(SyntaxKind.ImportDeclaration).forEach((declaration) => {
-        declaration = updateImportDeclaration(
-          declaration,
-          sourceFile,
-          componentImportNames,
-          fileName,
-          v2FileNameToIgnore
-        );
+        declaration = updateImportDeclaration(declaration, sourceFile, componentImportNames, draftsFileName);
       });
 
       // save source back to file

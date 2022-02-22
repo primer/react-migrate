@@ -1,7 +1,7 @@
 const { SyntaxKind } = require('ts-morph');
 const updateImportDeclaration = require('./utils/change-import-to-deprecated');
 
-const buttonImportNames = [
+const componentImportNames = [
   'Button',
   'ButtonProps',
   'ButtonDanger',
@@ -20,7 +20,8 @@ const buttonImportNames = [
   'ButtonCloseProps'
 ];
 
-const ignoreNewModuleSpecifier = 'Button2';
+const fileName = 'Button';
+const v2FileNameToIgnore = 'Button2';
 
 const transform = (project) => {
   const sourceFiles = project.getSourceFiles();
@@ -28,7 +29,13 @@ const transform = (project) => {
   sourceFiles.forEach((sourceFile) => {
     try {
       sourceFile.getDescendantsOfKind(SyntaxKind.ImportDeclaration).forEach((declaration) => {
-        declaration = updateImportDeclaration(declaration, sourceFile, buttonImportNames, ignoreNewModuleSpecifier);
+        declaration = updateImportDeclaration(
+          declaration,
+          sourceFile,
+          componentImportNames,
+          fileName,
+          v2FileNameToIgnore
+        );
       });
 
       // save source back to file
