@@ -9,7 +9,7 @@ const componentImportNames = [
   'PageLayoutPaneProps',
   'PageLayoutFooterProps'
 ];
-const draftsFileName = 'PageLayout2';
+const draftsFileName = 'PageLayout';
 
 const transform = (project) => {
   const sourceFiles = project.getSourceFiles();
