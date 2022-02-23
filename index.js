@@ -17,12 +17,11 @@ const preset = args.preset || args.p;
 const migration = args.migration || args.m;
 
 if (preset === 'v35') {
-  // todo: borderbox
+  require('./src/use-deprecated-borderbox.js')(project);
   require('./src/use-deprecated-flex.js')(project);
   require('./src/use-deprecated-grid.js')(project);
   require('./src/use-deprecated-position.js')(project);
-  // todo: dialog
-  // todo: dropdown
+  require('./src/use-deprecated-dropdown.js')(project);
   require('./src/use-deprecated-formgroup.js')(project);
   require('./src/use-deprecated-selectmenu.js')(project);
 
@@ -31,6 +30,7 @@ if (preset === 'v35') {
   require('./src/use-deprecated-actionmenu.js')(project);
   require('./src/use-deprecated-dropdownmenu.js ')(project);
 
+  require('./src/use-main-label.js')(project);
   require('./src/use-main-button.js')(project);
   require('./src/use-main-actionlist.js')(project);
   require('./src/use-main-actionmenu.js')(project);

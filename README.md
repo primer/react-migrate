@@ -23,22 +23,23 @@ npx primer-react-migrate src/client -m use-deprecated-button
 ### Available migrations::
 
 ```
-use-deprecated-flex.js
-use-deprecated-grid.js
-use-deprecated-position.js
-// todo: use-deprecated-borderbox
-// todo: use-deprecated-dialog
-// todo: use-deprecated-dropdown
-use-deprecated-formgroup.js
-use-deprecated-selectmenu.js
+use-deprecated-flex
+use-deprecated-grid
+use-deprecated-label
+use-deprecated-position
+use-deprecated-dropdown
+use-deprecated-borderbox
+use-deprecated-formgroup
+use-deprecated-selectmenu
 
 use-deprecated-button
-use-deprecated-actionlist.js
-use-deprecated-actionmenu.js
-use-deprecated-dropdownmenu.js
+use-deprecated-actionlist
+use-deprecated-actionmenu
+use-deprecated-dropdownmenu
 
-use-main-button.js
-use-main-actionlist.js
-use-main-actionmenu.js
-use-main-pagelayout.js
+use-main-label
+use-main-button
+use-main-actionlist
+use-main-actionmenu
+use-main-pagelayout
 ```
