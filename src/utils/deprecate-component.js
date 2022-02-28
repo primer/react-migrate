@@ -1,7 +1,7 @@
 const { SyntaxKind } = require('ts-morph');
 const updateImportDeclaration = require('./change-import-to-deprecated');
 
-const changeImportStatementsToDeprecated = (project, componentImportNames, fileName, v2FileNameToIgnore) => {
+const deprecateComponent = (project, componentImportNames, fileName, v2FileNameToIgnore) => {
   const sourceFiles = project.getSourceFiles();
 
   sourceFiles.forEach((sourceFile) => {
@@ -24,4 +24,4 @@ const changeImportStatementsToDeprecated = (project, componentImportNames, fileN
   });
 };
 
-module.exports = changeImportStatementsToDeprecated;
+module.exports = deprecateComponent;
