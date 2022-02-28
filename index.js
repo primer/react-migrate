@@ -23,6 +23,7 @@ if (preset === 'v35') {
   require('./src/use-deprecated-position.js')(project);
   require('./src/use-deprecated-dropdown.js')(project);
   require('./src/use-deprecated-formgroup.js')(project);
+  require('./src/use-deprecated-inputfield.js')(project);
   require('./src/use-deprecated-selectmenu.js')(project);
 
   require('./src/use-deprecated-button')(project);
