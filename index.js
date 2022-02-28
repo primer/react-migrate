@@ -23,13 +23,15 @@ if (preset === 'v35') {
   require('./src/use-deprecated-position.js')(project);
   require('./src/use-deprecated-dropdown.js')(project);
   require('./src/use-deprecated-formgroup.js')(project);
-  require('./src/use-deprecated-inputfield.js')(project);
   require('./src/use-deprecated-selectmenu.js')(project);
 
   require('./src/use-deprecated-button')(project);
   require('./src/use-deprecated-actionlist.js')(project);
   require('./src/use-deprecated-actionmenu.js')(project);
   require('./src/use-deprecated-dropdownmenu.js ')(project);
+  require('./src/use-deprecated-inputfield.js')(project);
+  require('./src/use-deprecated-choicefieldset.js')(project);
+  require('./src/use-deprecated-choiceinputfield.js')(project);
 
   require('./src/use-main-label.js')(project);
   require('./src/use-main-button.js')(project);
