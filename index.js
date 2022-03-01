@@ -25,10 +25,10 @@ if (preset === 'v35') {
   require('./src/use-deprecated-formgroup.js')(project);
   require('./src/use-deprecated-selectmenu.js')(project);
 
-  require('./src/use-deprecated-button')(project);
+  require('./src/use-deprecated-button.js')(project);
   require('./src/use-deprecated-actionlist.js')(project);
   require('./src/use-deprecated-actionmenu.js')(project);
-  require('./src/use-deprecated-dropdownmenu.js ')(project);
+  require('./src/use-deprecated-dropdownmenu.js')(project);
   require('./src/use-deprecated-inputfield.js')(project);
   require('./src/use-deprecated-choicefieldset.js')(project);
   require('./src/use-deprecated-choiceinputfield.js')(project);
