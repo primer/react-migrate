@@ -7,13 +7,13 @@
 &nbsp;
 
 ```
-npx primer-react-migrate [src directory] -p [preset name]
+npx primer-react-migrate [src directory] -p [preset name] [--create-commits]
 
 # or
-npx primer-react-migrate [src directory] -m [migration name]
+npx primer-react-migrate [src directory] -m [migration name] [--create-commits]
 
 # Example:
-npx primer-react-migrate src/client -p v35
+npx primer-react-migrate src/client -p v35 --create-commits
 
 npx primer-react-migrate src/client -m use-deprecated-button
 ```
