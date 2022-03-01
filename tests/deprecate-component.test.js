@@ -79,6 +79,18 @@ test('skip import declaration when specifier is a different component from lib-e
   expect(getResult()).toBe(`import { AnchoredOverlay } from '@primer/react/lib-esm/AnchoredOverlay';`);
 });
 
+test('skip default import declaration when specifier is a different component from lib-esm', () => {
+  createFixture(`import sx from '@primer/react/lib-esm/sx';`);
+  deprecateComponent(project, ActionListImportNames, ActionListFileName, ActionListv2FileNameToIgnore);
+  expect(getResult()).toBe(`import sx from '@primer/react/lib-esm/sx';`);
+});
+
+test('change import specifier when specifier is lib/ActionList', () => {
+  createFixture(`import { ActionList } from '@primer/react/lib/ActionList';`);
+  deprecateComponent(project, ActionListImportNames, ActionListFileName, ActionListv2FileNameToIgnore);
+  expect(getResult()).toBe(`import { ActionList } from '@primer/react/lib/deprecated/ActionList';`);
+});
+
 test("deprecated DropDown, but skip DropdownMenu, that's a different component", () => {
   createFixture(`
     import { Dropdown } from '@primer/react'

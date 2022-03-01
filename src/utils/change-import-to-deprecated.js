@@ -29,6 +29,8 @@ const updateImportDeclaration = (
   if (moduleSpecifier.includes('lib-esm/' + fileName) || moduleSpecifier.includes('lib/' + fileName)) {
     declaration.setModuleSpecifier(getUpdatedModuleSpecifier(moduleSpecifier));
     return declaration;
+  } else if (moduleSpecifier.includes('lib-esm/') || moduleSpecifier.includes('lib/' + fileName)) {
+    return declaration; // skip different component from lib-esm
   }
 
   /**
