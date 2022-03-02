@@ -111,19 +111,14 @@ test("deprecated DropDown, but skip DropdownMenu, that's a different component",
   `);
 });
 
-test("deprecated DropdownButton", () => {
-  createFixture(`
-    import { DropdownButton } from '@primer/react'
-    import { DropdownButton } from '@primer/react/lib/DropdownMenu';
-  `);
 
-  const importNames = ["DropdownButton", "DropdownButtonProps"];
-  const fileName = "DropdownButton";
+test("deprecated DropdownButton", () => {
+  createFixture(`import { DropdownButton } from '@primer/react';`);
+
+  const importNames = ['DropdownButton', 'DropdownButtonProps'];
+  const fileName = 'DropdownMenu';
 
   deprecateComponent(project, importNames, fileName);
 
-  expect(getResult()).toBe(`
-    import { DropdownButton } from '@primer/react/deprecated'
-    import { DropdownButton } from '@primer/react/lib/deprecated/DropdownMenu';
-  `);
+  expect(getResult()).toBe(`import { DropdownButton } from '@primer/react/deprecated';`);
 });
