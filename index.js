@@ -18,13 +18,17 @@ const migration = args.migration || args.m;
 const createCommits = args['create-commits'];
 
 const migrations = [
+  // old deprecations
   'use-deprecated-borderbox',
   'use-deprecated-flex',
   'use-deprecated-grid',
+  'use-deprecated-label',
   'use-deprecated-position',
   'use-deprecated-dropdown',
   'use-deprecated-formgroup',
   'use-deprecated-selectmenu',
+
+  // new deprecations
   'use-deprecated-button',
   'use-deprecated-actionlist',
   'use-deprecated-actionmenu',
@@ -32,7 +36,8 @@ const migrations = [
   'use-deprecated-inputfield',
   'use-deprecated-choicefieldset',
   'use-deprecated-choiceinputfield',
-  // promotions should be run after deprecations
+
+  // promotions, should be run after deprecations
   'use-main-label',
   'use-main-button',
   'use-main-actionlist',
