@@ -36,6 +36,7 @@ use-deprecated-button
 use-deprecated-actionlist
 use-deprecated-actionmenu
 use-deprecated-dropdownmenu
+use-deprecated-dropdownbutton
 use-deprecated-inputfield
 use-deprecated-choicefieldset
 use-deprecated-choiceinputfield
