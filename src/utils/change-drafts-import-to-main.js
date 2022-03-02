@@ -55,7 +55,7 @@ const updateImportDeclaration = (declaration, sourceFile, componentImportNames, 
     const componentElementNames = componentElements.map((element) => element.getName());
     const otherElementNames = elements
       .filter((element) => !componentImportNames.includes(element.getName()))
-      .map((element) => element.getName());
+      .map((element) => element.getFullText());
 
     // reset imports and add non-deprecated imports back
     declaration.removeNamedImports().addNamedImports(otherElementNames);
