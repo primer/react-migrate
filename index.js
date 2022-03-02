@@ -1,14 +1,13 @@
 #!/usr/bin/env node
 
-const ora = require('ora');
-const chalk = require('chalk');
 const { resolve } = require('path');
-const args = require('yargs-parser')(process.argv.slice(2));
+const loader = require('./src/utils/loader');
 const createProject = require('./src/utils/create-project');
-const createCommit = require('./src/utils/create-commit');
+const { createCommit, getPrettyMessage } = require('./src/utils/create-commit');
 
 const project = createProject();
 
+const args = require('yargs-parser')(process.argv.slice(2));
 const srcPath = args._[0] || 'src';
 const globPath = resolve(srcPath + '/**/*.{tsx,ts,jsx,js}');
 
@@ -50,22 +49,18 @@ const migrations = [
 if (preset === 'v35') {
   async function runSequentially() {
     for (const migrationName of migrations) {
-      const spinner = ora(chalk.yellow(migrationName));
-      spinner.color = 'yellow';
-      spinner.spinner = 'arc';
-      spinner.start();
+      const message = getPrettyMessage(migrationName);
+      const { success, skip } = loader(message);
 
       require(`./src/${migrationName}.js`)(project);
 
       if (createCommits) {
         const changed = await createCommit(migrationName);
-        if (changed) spinner.succeed(chalk.green(migrationName));
-        else spinner.info(chalk.green(migrationName));
-      } else {
-        spinner.succeed(chalk.green(migrationName));
-      }
+        changed ? success() : skip();
+      } else success();
     }
   }
+
   runSequentially();
 } else {
   if (migrations.includes(migration)) {
