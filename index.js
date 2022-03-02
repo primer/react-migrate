@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+const ora = require('ora');
+const chalk = require('chalk');
 const { resolve } = require('path');
 const args = require('yargs-parser')(process.argv.slice(2));
 const createProject = require('./src/utils/create-project');
@@ -48,11 +50,20 @@ const migrations = [
 if (preset === 'v35') {
   async function runSequentially() {
     for (const migrationName of migrations) {
-      console.log('running ' + migrationName);
+      const spinner = ora(chalk.yellow(migrationName));
+      spinner.color = 'yellow';
+      spinner.spinner = 'arc';
+      spinner.start();
+
       require(`./src/${migrationName}.js`)(project);
 
-      const { changed } = await createCommit(migrationName, createCommits);
-      console.log({ changed });
+      if (createCommits) {
+        const changed = await createCommit(migrationName);
+        if (changed) spinner.succeed(chalk.green(migrationName));
+        else spinner.info(chalk.green(migrationName));
+      } else {
+        spinner.succeed(chalk.green(migrationName));
+      }
     }
   }
   runSequentially();

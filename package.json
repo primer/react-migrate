@@ -11,6 +11,8 @@
   "author": "primer",
   "license": "MIT",
   "dependencies": {
+    "chalk": "^4.1.2",
+    "ora": "^5.4.1",
     "simple-git": "^3.2.6",
     "ts-morph": "^13.0.3",
     "yargs-parser": "^21.0.0"

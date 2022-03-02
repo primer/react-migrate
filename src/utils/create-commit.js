@@ -1,12 +1,12 @@
 const git = require('simple-git')();
 
-const createCommit = async (migrationName, createCommits) => {
+const createCommit = async (migrationName) => {
   const { changed } = await git.diffSummary();
   if (!changed) return;
 
   await git.add('.');
-  if (createCommits) await git.commit(getPrettyCommitMessage(migrationName));
-  return { changed };
+  await git.commit(getPrettyCommitMessage(migrationName));
+  return changed;
 };
 
 module.exports = createCommit;
