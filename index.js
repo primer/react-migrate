@@ -46,10 +46,16 @@ const migrations = [
 ];
 
 if (preset === 'v35') {
-  migrations.forEach((migrationName) => {
-    require(`./src/${migrationName}.js`)(project);
-    if (createCommits) createCommit(migrationName);
-  });
+  async function runSequentially() {
+    for (const migrationName of migrations) {
+      console.log('running ' + migrationName);
+      require(`./src/${migrationName}.js`)(project);
+
+      const { changed } = await createCommit(migrationName, createCommits);
+      console.log({ changed });
+    }
+  }
+  runSequentially();
 } else {
   if (migrations.includes(migration)) {
     const path = './src/' + migration + '.js';
