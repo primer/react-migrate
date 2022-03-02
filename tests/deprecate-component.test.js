@@ -111,11 +111,13 @@ test("deprecated DropDown, but skip DropdownMenu, that's a different component",
   `);
 });
 
-test("deprecate ActionList, but keep the rename of adjacent Link component", () => {
-  createFixture(`import { ActionList, Link as PrimerLink } from '@primer/react';`);
+test('deprecate ActionList, but keep the rename of adjacent Link component', () => {
+  createFixture(`
+import { ActionList, Link as PrimerLink } from '@primer/react';
+  `);
   deprecateComponent(project, ActionListImportNames, ActionListFileName, ActionListv2FileNameToIgnore);
   expect(getResult()).toBe(`
-import {  Link as PrimerLink } from '@primer/react';
+import { Link as PrimerLink } from '@primer/react';
 import { ActionList } from '@primer/react/deprecated';
-`);
-})
+  `);
+});

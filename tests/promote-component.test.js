@@ -55,10 +55,12 @@ test('split + change import declaration when multiple components are imported', 
 });
 
 test('promote ActionList, but keep the rename of adjacent Link component', () => {
-  createFixture(`import { ActionList, Button as Button2 } from '@primer/react/drafts';`);
+  createFixture(`
+import { ActionList, Button as Button2 } from '@primer/react/drafts';
+  `);
   promoteDraftsComponent(project, ActionListImportNames, draftsFileName);
   expect(getResult()).toBe(`
-import {  Button as Button2 } from '@primer/react/drafts';
-import { ActionList } from '@primer/react';`);
+import { Button as Button2 } from '@primer/react/drafts';
+import { ActionList } from '@primer/react';
+  `);
 });
-
