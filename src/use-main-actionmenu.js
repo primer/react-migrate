@@ -8,9 +8,10 @@ const componentImportNames = [
   'ActionMenuOverlayProps'
 ];
 const draftsFileName = 'ActionMenu2';
+const newFileName = 'ActionMenu';
 
 const transform = (project) => {
-  declaration = promoteDraftsComponent(project, componentImportNames, draftsFileName);
+  declaration = promoteDraftsComponent(project, componentImportNames, draftsFileName, newFileName);
 };
 
 module.exports = transform;

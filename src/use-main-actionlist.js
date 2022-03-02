@@ -10,9 +10,10 @@ const componentImportNames = [
   'ActionListTrailingVisualProps'
 ];
 const draftsFileName = 'ActionList2';
+const newFileName = 'ActionList';
 
 const transform = (project) => {
-  declaration = promoteDraftsComponent(project, componentImportNames, draftsFileName);
+  declaration = promoteDraftsComponent(project, componentImportNames, draftsFileName, newFileName);
 };
 
 module.exports = transform;
