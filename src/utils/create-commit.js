@@ -1,16 +1,15 @@
 const git = require('simple-git')();
 
 const createCommit = async (migrationName) => {
-  const { changed } = await git.diffSummary();
+  const { changed } = await git.diffSummary('.');
   if (!changed) return;
 
   await git.add('.');
-  await git.commit(getPrettyCommitMessage(migrationName));
+  await git.commit(getPrettyMessage(migrationName));
+  return changed;
 };
 
-module.exports = createCommit;
-
-const getPrettyCommitMessage = (migrationName) => {
+const getPrettyMessage = (migrationName) => {
   if (migrationName.includes('use-deprecated')) {
     const componentName = migrationName.replace('use-deprecated-', '');
     return `Change import path for ${componentName} → deprecated/${componentName}`;
@@ -23,3 +22,5 @@ const getPrettyCommitMessage = (migrationName) => {
 
   return migrationName;
 };
+
+module.exports = { createCommit, getPrettyMessage };

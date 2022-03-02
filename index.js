@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
 const { resolve } = require('path');
-const args = require('yargs-parser')(process.argv.slice(2));
+const loader = require('./src/utils/loader');
 const createProject = require('./src/utils/create-project');
-const createCommit = require('./src/utils/create-commit');
+const { createCommit, getPrettyMessage } = require('./src/utils/create-commit');
 
 const project = createProject();
 
+const args = require('yargs-parser')(process.argv.slice(2));
 const srcPath = args._[0] || 'src';
 const globPath = resolve(srcPath + '/**/*.{tsx,ts,jsx,js}');
 
@@ -46,10 +47,21 @@ const migrations = [
 ];
 
 if (preset === 'v35') {
-  migrations.forEach((migrationName) => {
-    require(`./src/${migrationName}.js`)(project);
-    if (createCommits) createCommit(migrationName);
-  });
+  async function runSequentially() {
+    for (const migrationName of migrations) {
+      const message = getPrettyMessage(migrationName);
+      const { success, skip } = loader(message);
+
+      require(`./src/${migrationName}.js`)(project);
+
+      if (createCommits) {
+        const changed = await createCommit(migrationName);
+        changed ? await success() : await skip();
+      } else await success();
+    }
+  }
+
+  runSequentially();
 } else {
   if (migrations.includes(migration)) {
     const path = './src/' + migration + '.js';
