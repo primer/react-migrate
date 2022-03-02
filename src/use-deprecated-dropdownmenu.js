@@ -1,6 +1,6 @@
 const deprecateComponent = require('./utils/deprecate-component');
 
-const componentImportNames = ['DropdownMenu', 'DropdownMenuProps'];
+const componentImportNames = ['DropdownMenu', 'DropdownMenuProps', "DropdownButton", "DropdownButtonProps"];
 const fileName = 'DropdownMenu';
 const v2FileNameToIgnore = 'DropdownMenu2';
 

@@ -121,3 +121,14 @@ import { Link as PrimerLink } from '@primer/react';
 import { ActionList } from '@primer/react/deprecated';
   `);
 });
+
+test("deprecate DropdownButton", () => {
+  createFixture(`import { DropdownButton } from '@primer/react';`);
+
+  const importNames = ['DropdownButton', 'DropdownButtonProps'];
+  const fileName = 'DropdownMenu';
+
+  deprecateComponent(project, importNames, fileName);
+
+  expect(getResult()).toBe(`import { DropdownButton } from '@primer/react/deprecated';`);
+});
