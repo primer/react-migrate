@@ -4,12 +4,7 @@ const componentImportNames = ["DropdownButton", "DropdownButtonProps"];
 const fileName = "DropdownButton";
 
 const transform = (project) => {
-  deprecateComponent(
-    project,
-    componentImportNames,
-    fileName,
-    v2FileNameToIgnore
-  );
+  deprecateComponent(project, componentImportNames, fileName);
 };
 
 module.exports = transform;
