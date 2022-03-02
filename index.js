@@ -56,8 +56,8 @@ if (preset === 'v35') {
 
       if (createCommits) {
         const changed = await createCommit(migrationName);
-        changed ? success() : skip();
-      } else success();
+        changed ? await success() : await skip();
+      } else await success();
     }
   }
 
