@@ -5,8 +5,6 @@ const componentImportNames = [
   'ButtonProps',
   'ButtonDanger',
   'ButtonDangerProps',
-  'ButtonGroup',
-  'ButtonGroupProps',
   'ButtonOutline',
   'ButtonOutlineProps',
   'ButtonPrimary',
