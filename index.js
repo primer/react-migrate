@@ -32,6 +32,7 @@ const migrations = [
   'use-deprecated-inputfield',
   'use-deprecated-choicefieldset',
   'use-deprecated-choiceinputfield',
+  // promotions should be run after deprecations
   'use-main-label',
   'use-main-button',
   'use-main-actionlist',

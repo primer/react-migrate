@@ -1,6 +1,6 @@
 const { convertToStringLiteral } = require('./string-literal');
 
-const updateImportDeclaration = (declaration, sourceFile, componentImportNames, draftsFileName) => {
+const updateImportDeclaration = (declaration, sourceFile, componentImportNames, draftsFileName, newFileName) => {
   /**  import   { ... }      from     '....'
    *          importClause        moduleSpecifier
    */
@@ -10,19 +10,24 @@ const updateImportDeclaration = (declaration, sourceFile, componentImportNames, 
   const isPrimerReact = moduleSpecifier.includes('@primer/react');
   if (!isPrimerReact) return declaration;
 
-  // if it isn't drafts, skip
-  if (!moduleSpecifier.includes('drafts')) return declaration;
-
   // import ... from '@primer/react/lib-esm/*'
   if (
     moduleSpecifier.includes('lib-esm/drafts/' + draftsFileName) ||
-    moduleSpecifier.includes('lib/drafts/' + draftsFileName)
+    moduleSpecifier.includes('lib/drafts/' + draftsFileName) ||
+    moduleSpecifier.includes('lib-esm/' + draftsFileName) ||
+    moduleSpecifier.includes('lib/' + draftsFileName)
   ) {
-    const newModuleSpecifier = moduleSpecifier.replace('lib-esm/drafts/', 'lib-esm/').replace('lib/drafts/', 'lib/');
+    const newModuleSpecifier = moduleSpecifier
+      .replace('lib-esm/drafts/', 'lib-esm/')
+      .replace('lib/drafts/', 'lib/')
+      .replace(draftsFileName, newFileName);
     // have to remove quotes from string
     declaration.setModuleSpecifier(convertToStringLiteral(newModuleSpecifier));
     return declaration;
   }
+
+  // if it isn't drafts, skip
+  if (!moduleSpecifier.includes('drafts')) return declaration;
 
   const importClause = declaration.getImportClause();
 
