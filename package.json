@@ -16,7 +16,7 @@
     "yargs-parser": "^21.0.0"
   },
   "peerDependencies": {
-    "@primer/react": ">35.0.0"
+    "@primer/react": ">=35.0.0"
   },
   "devDependencies": {
     "@primer/react": "^34.3.0",
