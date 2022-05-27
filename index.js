@@ -9,7 +9,7 @@ const project = createProject();
 
 const args = require('yargs-parser')(process.argv.slice(2));
 const srcPath = args._[0] || 'src';
-const globPath = resolve(srcPath + '/**/*.{tsx,ts,jsx,js}');
+const globPath = resolve(srcPath + '/**/*.{tsx,ts,jsx,js,mdx,md}');
 
 project.addSourceFilesAtPaths(globPath);
 console.log(`${project.getSourceFiles().length} files found at ${globPath} \n`);
