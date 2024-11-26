@@ -4,6 +4,7 @@ const { resolve } = require('path');
 const loader = require('./src/utils/loader');
 const createProject = require('./src/utils/create-project');
 const { createCommit, getPrettyMessage } = require('./src/utils/create-commit');
+const { deprecate } = require('util');
 
 const project = createProject();
 
@@ -18,7 +19,7 @@ const preset = args.preset || args.p;
 const migration = args.migration || args.m;
 const createCommits = args['create-commits'];
 
-const migrations = [
+const v35Migrations = [
   // old deprecations
   'use-deprecated-borderbox',
   'use-deprecated-flex',
@@ -46,9 +47,36 @@ const migrations = [
   'use-main-pagelayout'
 ];
 
-if (preset === 'v35') {
-  async function runSequentially() {
-    for (const migrationName of migrations) {
+const v37Migrations = [
+  // deprecrations
+  'use-deprecated-dialog',
+  'use-deprecated-tooltip',
+  'use-deprecated-octicon',
+  'use-deprecated-pagehead',
+  'use-deprecated-tabnav',
+
+  // drafts is renamed to experimental
+  'rename-drafts-to-experimental',
+
+  // promotions, should be run after deprecations
+  'use-main-dialog',
+  'use-main-tooltip',
+  'use-main-stack'
+];
+
+const allMigrations = [...v35Migrations, ...v37Migrations];
+
+if (preset) {
+  if (preset === 'v35') runSequentially(v35Migrations);
+  else if (preset === 'v37') runSequentially(v37Migrations);
+  else {
+    console.log(
+      'Preset not found! Check the list of available presets on https://github.com/primer/react-migrate'
+    );
+  }
+
+  async function runSequentially(presetMigrations) {
+    for (const migrationName of presetMigrations) {
       const message = getPrettyMessage(migrationName);
       const { success, skip } = loader(message);
 
@@ -60,10 +88,8 @@ if (preset === 'v35') {
       } else await success();
     }
   }
-
-  runSequentially();
 } else {
-  if (migrations.includes(migration)) {
+  if (allMigrations.includes(migration)) {
     const path = './src/' + migration + '.js';
     require(path)(project);
     if (createCommits) createCommit(migration);
