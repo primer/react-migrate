@@ -59,7 +59,6 @@ const v37Migrations = [
   'rename-drafts-to-experimental',
 
   // promotions, should be run after deprecations
-  // 'Promote Dialog, Tooltip, and Stack'
   'use-main-dialog',
   'use-main-tooltip',
   'use-main-stack'

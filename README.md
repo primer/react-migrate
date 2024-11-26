@@ -52,4 +52,16 @@ use-main-button
 use-main-actionlist
 use-main-actionmenu
 use-main-pagelayout
+
+use-deprecated-dialog
+use-deprecated-tooltip
+use-deprecated-octicon
+use-deprecated-pagehead
+use-deprecated-tabnav
+
+rename-drafts-to-experimental
+
+use-main-dialog
+use-main-tooltip
+use-main-stack
 ```
