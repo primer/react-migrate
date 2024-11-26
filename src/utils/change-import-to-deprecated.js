@@ -26,10 +26,16 @@ const updateImportDeclaration = (
   }
 
   // import ... from '@primer/react/lib-esm/*'
-  if (moduleSpecifier.includes('lib-esm/' + fileName) || moduleSpecifier.includes('lib/' + fileName)) {
+  if (
+    moduleSpecifier.includes('lib-esm/' + fileName) ||
+    moduleSpecifier.includes('lib/' + fileName)
+  ) {
     declaration.setModuleSpecifier(getUpdatedModuleSpecifier(moduleSpecifier));
     return declaration;
-  } else if (moduleSpecifier.includes('lib-esm/') || moduleSpecifier.includes('lib/' + fileName)) {
+  } else if (
+    moduleSpecifier.includes('lib-esm/') ||
+    moduleSpecifier.includes('lib/' + fileName)
+  ) {
     return declaration; // skip different component from lib-esm
   }
 
@@ -59,13 +65,17 @@ const updateImportDeclaration = (
 
     // only deprecated component in this import
     if (elements.length === componentElements.length) {
-      declaration.setModuleSpecifier(getUpdatedModuleSpecifier(moduleSpecifier));
+      declaration.setModuleSpecifier(
+        getUpdatedModuleSpecifier(moduleSpecifier)
+      );
       return declaration;
     }
 
     // mixed imports: import {Button, TextInput} from '@primer/react'
     // we need to split the import statement
-    const componentElementNames = componentElements.map((element) => element.getName());
+    const componentElementNames = componentElements.map((element) =>
+      element.getName()
+    );
     const otherElementNames = elements
       .filter((element) => !componentImportNames.includes(element.getName()))
       .map((element) => element.getFullText().trim());
@@ -92,8 +102,15 @@ module.exports = updateImportDeclaration;
 const getUpdatedModuleSpecifier = (currentModuleSpecifier) => {
   let newModuleSpecifier;
 
-  if (currentModuleSpecifier === `'@primer/react'`) newModuleSpecifier = '@primer/react/deprecated';
-  else if (currentModuleSpecifier.includes('lib-esm/') || currentModuleSpecifier.includes('lib/')) {
+  if (
+    currentModuleSpecifier === `'@primer/react'` ||
+    currentModuleSpecifier === `"@primer/react"`
+  ) {
+    newModuleSpecifier = '@primer/react/deprecated';
+  } else if (
+    currentModuleSpecifier.includes('lib-esm/') ||
+    currentModuleSpecifier.includes('lib/')
+  ) {
     newModuleSpecifier = currentModuleSpecifier
       .replace('lib-esm/', 'lib-esm/deprecated/')
       .replace('lib/', 'lib/deprecated/');
