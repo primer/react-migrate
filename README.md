@@ -20,7 +20,14 @@ npx primer-react-migrate src -m use-deprecated-button
 
 &nbsp;
 
-### Available migrations::
+### Available presets:
+
+- v35
+- v37
+
+&nbsp;
+
+### Available migrations:
 
 ```
 use-deprecated-flex
