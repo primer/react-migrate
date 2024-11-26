@@ -20,6 +20,7 @@ const updateImportDeclaration = (
   if (
     moduleSpecifier.includes('drafts') ||
     moduleSpecifier.includes('deprecated') ||
+    moduleSpecifier.includes('experimental') ||
     moduleSpecifier.includes(v2FileNameToIgnore)
   ) {
     return declaration;
@@ -60,8 +61,10 @@ const updateImportDeclaration = (
       return componentImportNames.includes(importName);
     });
 
-    // if there are no componnent imports in this import, skip this import
+    // if there are no component imports in this import, skip this import
     if (componentElements.length === 0) return declaration;
+
+    console.log(sourceFile.getName(), 'Found import for', componentImportNames);
 
     // only deprecated component in this import
     if (elements.length === componentElements.length) {
