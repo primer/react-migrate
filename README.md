@@ -13,7 +13,7 @@ npx primer-react-migrate [src directory] -p [preset name] [--create-commits]
 npx primer-react-migrate [src directory] -m [migration name] [--create-commits]
 
 # Example:
-npx primer-react-migrate src -p v35 --create-commits
+npx primer-react-migrate src -p v37 --create-commits
 
 npx primer-react-migrate src -m use-deprecated-button
 ```
@@ -22,8 +22,8 @@ npx primer-react-migrate src -m use-deprecated-button
 
 ### Available presets:
 
-- v35
 - v37
+- v35
 
 &nbsp;
 

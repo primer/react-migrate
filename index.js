@@ -4,6 +4,7 @@ const { resolve } = require('path');
 const loader = require('./src/utils/loader');
 const createProject = require('./src/utils/create-project');
 const { createCommit, getPrettyMessage } = require('./src/utils/create-commit');
+const { deprecate } = require('util');
 
 const project = createProject();
 
@@ -46,7 +47,23 @@ const v35Migrations = [
   'use-main-pagelayout'
 ];
 
-const v37Migrations = [];
+const v37Migrations = [
+  // deprecrations
+  'use-deprecated-dialog',
+  'use-deprecated-tooltip',
+  'use-deprecated-octicon',
+  'use-deprecated-pagehead',
+  'use-deprecated-tabnav',
+
+  // drafts is renamed to experimental
+  'rename-drafts-to-experimental',
+
+  // promotions, should be run after deprecations
+  // 'Promote Dialog, Tooltip, and Stack'
+  'use-main-dialog',
+  'use-main-tooltip',
+  'use-main-stack'
+];
 
 const allMigrations = [...v35Migrations, ...v37Migrations];
 
